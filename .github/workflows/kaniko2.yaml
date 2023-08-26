@@ -1,0 +1,31 @@
+name: Build and Push Docker Image with Kaniko
+
+on:
+  push:
+    branches:
+      - main  # Change this to your desired branch
+
+jobs:
+  build-and-push:
+    runs-on: self-hosted  # Change this to your runner label
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Set up Kaniko
+        uses: garethr/kaniko-action@v1
+        with:
+          context: .  # Path to the directory containing Dockerfile
+          destination: <registry>/<image-name>:<tag>
+          dockerfile: Dockerfile  # Path to your Dockerfile
+          cache: true
+
+      - name: Login to Container Registry
+        run: echo ${{ secrets.REGISTRY_TOKEN }} | docker login -u <username> --password-stdin <registry>
+
+      - name: Push Docker Image
+        run: docker push <registry>/<image-name>:<tag>
