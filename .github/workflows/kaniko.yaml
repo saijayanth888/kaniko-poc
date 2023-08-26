@@ -12,9 +12,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
       - name: Build Docker Image with Kaniko
         env:
           KANIKO_IMAGE_NAME: your-image-name:tag
@@ -22,4 +19,4 @@ jobs:
           mkdir -p /kaniko/build-context
           echo "Your Dockerfile content" > /kaniko/build-context/Dockerfile
           echo "Additional files if needed" > /kaniko/build-context/other-file
-          docker run --rm -v /kaniko/build-context:/workspace -e "DOCKER_CONFIG=/workspace/.docker" gcr.io/kaniko-project/executor:latest --context /workspace --dockerfile /workspace/Dockerfile --destination $KANIKO_IMAGE_NAME
+          docker run --rm -v /kaniko/build-context:/workspace gcr.io/kaniko-project/executor:latest --context /workspace --dockerfile /workspace/Dockerfile --destination $KANIKO_IMAGE_NAME
