@@ -16,7 +16,6 @@ jobs:
         env:
           KANIKO_IMAGE_NAME: your-image-name:tag
         run: |
-          mkdir -p /kaniko/build-context
-          echo "Your Dockerfile content" > /kaniko/build-context/Dockerfile
+          echo "FROM scratch ADD hello / CMD ["/hello"]" > /kaniko/workspace/Dockerfile
           echo "Additional files if needed" > /kaniko/build-context/other-file
           docker run --rm -v /kaniko/build-context:/workspace gcr.io/kaniko-project/executor:latest --context /workspace --dockerfile /workspace/Dockerfile --destination $KANIKO_IMAGE_NAME
