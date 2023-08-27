@@ -16,5 +16,5 @@ jobs:
         env:
           KANIKO_IMAGE_NAME: your-image-name:tag
         run: |
-            echo 'FROM ubuntu' >> /kaniko/workspace/dockerfile
-            echo 'ENTRYPOINT ["/bin/bash", "-c", "echo hello"]' >> /kaniko/workspace/dockerfile
+            cp Dockerfile >> /kaniko/workspace/Dockerfile
+            cat /kaniko/workspace/Dockerfile
