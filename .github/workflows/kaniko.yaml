@@ -16,5 +16,6 @@ jobs:
         env:
           KANIKO_IMAGE_NAME: your-image-name:tag
         run: |
-            cp Dockerfile >> /kaniko/workspace/Dockerfile
-            cat /kaniko/workspace/Dockerfile
+             pwd && ls -larth
+             cp Dockerfile >> /kaniko/workspace/Dockerfile
+             cat /kaniko/workspace/Dockerfile
